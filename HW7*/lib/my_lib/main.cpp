@@ -16,10 +16,7 @@ void setup()
 
 void loop()
 {
-    static unsigned long lastRun = 0;
-
     if (sensor_ready()) {
-        sensor_set_ready(false); // сброс флага
         sensor_read();
         Serial.print("Sensor: T=");
         Serial.print(sensor_get_temp());
@@ -29,13 +26,8 @@ void loop()
     }
 
     if (display_ready()) {
-        display_set_ready(false); // сброс флага
         display_update();
     }
 
-    // Неблокирующая задержка 10ms
-    if (millis() - lastRun >= 10) {
-        lastRun = millis();
-        // Какие-то периодические действия если нужны
-    }
+    delay(10);
 }
